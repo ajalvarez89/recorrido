@@ -4,11 +4,11 @@ module RequestHelper
   # Public: Returns the response body parsed according it own content type.
   def response_body
     case response.content_type
-    when /^application\/json/
+    when %r{^application/json}
       JSON.parse(response.body, symbolize_names: true)
-    when /^application\/xml/, /^text\/xml/
+    when %r{^application/xml}, %r{^text/xml}
       Nokogiri::XML(response.body)
-    when /^text\/html/
+    when %r{^text/html}
       Nokogiri::HTML(response.body)
     else
       response.body

@@ -17,5 +17,5 @@ test:
   database: 'shift_service_test'
 
 production:
-  primary:
-    <<: *default
+  <<: *default
+  database: shift_service_production
