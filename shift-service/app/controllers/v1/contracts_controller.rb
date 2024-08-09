@@ -2,10 +2,12 @@
 
 module V1
   class ContractsController < ApplicationController
+    has_scope :by_service
+
     before_action :contract, only: :show
 
     def index
-      render json: Contract.all
+      render json: apply_scopes(Contract).all
     end
 
     def show

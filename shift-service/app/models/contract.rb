@@ -15,6 +15,8 @@ class Contract < ApplicationRecord
 
   validates_with TimeRangeValidator
 
+  scope :by_service, ->(service_id) { where(service_id:) }
+
   def build_end_date
     return unless start_date
 

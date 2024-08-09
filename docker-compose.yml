@@ -1,0 +1,65 @@
+version: '3.8'
+
+services:
+  shift-service:
+    container_name: shift-service
+    build:
+      context: ./shift-service
+      args:
+        BUNDLE_PATH: /usr/local/bundle
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+      - rabbitmqshit
+    volumes:
+      - ./shift-service:/usr/src/app
+      - bundle_cache:/usr/local/shift/bundle
+    environment:
+      POSTGRESQL_HOST: db
+      POSTGRESQL_PORT: 5432
+      POSTGRESQL_DATABASE: shift_service
+      RABBITMQ_URL: amqp://rabbitmqshit:5672
+    command: >
+      bash -c "bundle exec rails db:create &&
+      bundle exec rails db:migrate &&
+      bundle exec rails db:seed &&
+      (bundle exec rails s -b 0.0.0.0 &) &&
+      bundle exec rake sneakers:run"
+
+  db:
+    image: postgres:12
+    volumes:
+      - ./docker/data-volume/postgresql:/var/lib/postgresql/data
+    ports:
+      - 5456:5432
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: trust
+
+  rabbitmqshit:
+    container_name: rabbitmqshit
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    volumes:
+      - rabbitmqshit:/var/lib/rabbitmq
+
+  vue-app:
+    container_name: vue-app
+    build:
+      context: ./shift-service-webapp
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./shift-service-webapp:/usr/src/app
+    command: npm run serve
+    depends_on:
+      - shift-service
+
+volumes:
+  bundle_cache:
+    name: bundle_cache
+  rabbitmqshit:
+    name: rabbitmqshit

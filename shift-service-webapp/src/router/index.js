@@ -1,17 +1,23 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import HomePage from '../views/HomePage.vue';
-// import EngineerList from '../views/EngineerList.vue';
-// import EngineerCreate from '../views/EngineerCreate.vue';
+import MainView from '../views/MainView.vue';
+import ManageConfirmedShifts from '../views/ManageConfirmedShifts.vue';
 
 const routes = [
-  { path: '/test', name: 'HomePage', component: HomePage },
-  // { path: '/engineers', name: 'EngineerList', component: EngineerList },
-  // { path: '/engineers/new', name: 'EngineerCreate', component: EngineerCreate },
+  {
+    path: '/',
+    name: 'MainView',
+    component: MainView
+  },
+  {
+    path: '/manage_confirmed_shifts',
+    name: 'ManageConfirmedShifts',
+    component: ManageConfirmedShifts
+  }
 ];
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
-  routes,
+  routes
 });
 
 export default router;
