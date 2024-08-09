@@ -1,0 +1,19 @@
+{
+  "title": "Service",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "The unique identifier for the service."
+    },
+    "name": {
+      "type": "string",
+      "description": "The name of the service."
+    },
+    "description": {
+      "type": "string",
+      "description": "A brief description of the service."
+    }
+  },
+  "required": ["id", "name", "description"]
+}

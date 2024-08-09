@@ -1,0 +1,19 @@
+---
+base:
+  start_date: 2024-01-01
+  end_date: 2024-12-31
+  start_hour_weekday: 19
+  end_hour_weekday: 24
+  start_hour_weekend: 10
+  end_hour_weekend: 24
+  service: base
+
+contract_one:
+  start_date: 2024-08-05
+  end_date: 2024-08-11
+  start_hour_weekday: 19
+  end_hour_weekday: 24
+  start_hour_weekend: 10
+  end_hour_weekend: 24
+  service: base
+

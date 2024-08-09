@@ -18,6 +18,8 @@ module ShiftService
   class Application < Rails::Application
     config.load_defaults 7.1
 
+    I18n.available_locales = %i[en]
+
     config.api_only = true
     config.eager_load_paths << File.join(config.root, '/lib')
 

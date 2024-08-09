@@ -1,0 +1,55 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "contract_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "date": {
+      "type": "string",
+      "format": "date"
+    },
+    "day_of_week": {
+      "type": "string",
+      "enum": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+    },
+    "start_hour": {
+      "type": "string",
+      "pattern": "^([01]?[0-9]|2[0-3]):[0-5][0-9]$"
+    },
+    "end_hour": {
+      "type": "string",
+      "pattern": "^([01]?[0-9]|2[0-3]):[0-5][0-9]$"
+    },
+    "engineer_shifts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "engineer_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["scheduled", "confirmed"]
+          },
+          "_destroy": {
+            "type": "boolean"
+          }
+        },
+        "required": ["id", "engineer_id", "status", "_destroy"]
+      },
+      "minItems": 0
+    }
+  },
+  "required": ["id", "contract_id", "date", "day_of_week", "start_hour", "end_hour"]
+}

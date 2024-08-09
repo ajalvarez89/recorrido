@@ -1,0 +1,14 @@
+---
+shift_one:
+  date: '2024-08-19'
+  day_of_week: 'Monday'
+  start_hour: '10:00'
+  end_hour: '11:00'
+  contract: base
+
+shift_two:
+  date: '2024-08-20'
+  day_of_week: 'Tuesday'
+  start_hour: '11:00'
+  end_hour: '12:00'
+  contract: base

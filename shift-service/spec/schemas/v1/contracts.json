@@ -1,0 +1,53 @@
+{
+  "title": "Contracts",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "description": "The unique identifier for the contract."
+      },
+      "start_date": {
+        "type": "string",
+        "format": "date-time",
+        "description": "The start date of the contract in ISO 8601 format."
+      },
+      "end_date": {
+        "type": "string",
+        "format": "date-time",
+        "description": "The end date of the contract in ISO 8601 format."
+      },
+      "start_hour_weekday": {
+        "type": "integer",
+        "description": "The start hour for weekdays."
+      },
+      "end_hour_weekday": {
+        "type": "integer",
+        "description": "The end hour for weekdays."
+      },
+      "start_hour_weekend": {
+        "type": "integer",
+        "description": "The start hour for weekends."
+      },
+      "end_hour_weekend": {
+        "type": "integer",
+        "description": "The end hour for weekends."
+      },
+      "service_id": {
+        "type": "string",
+        "description": "The identifier for the associated service."
+      }
+    },
+    "required": [
+      "id",
+      "start_date",
+      "end_date",
+      "start_hour_weekday",
+      "end_hour_weekday",
+      "start_hour_weekend",
+      "end_hour_weekend",
+      "service_id"
+    ]
+  }
+}

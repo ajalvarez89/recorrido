@@ -1,4 +1,9 @@
 ---
-john:
+base:
   name: john
-  color: green
+
+two:
+  name: two
+
+three:
+  name: three

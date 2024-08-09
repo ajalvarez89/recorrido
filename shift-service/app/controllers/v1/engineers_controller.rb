@@ -2,7 +2,7 @@
 
 module V1
   class EngineersController < ApplicationController
-    before_action :engineer, only: %i[show update]
+    before_action :engineer, only: :show
 
     def index
       render json: Engineer.all
@@ -20,12 +20,10 @@ module V1
       render json: @engineer, status: :created
     end
 
-    def update; end
-
     private
 
     def unprocessable_entity
-      render json: { errors: @engineer.errors.api_messages }, status: __method__
+      render json: { errors: api_messages(@engineer.errors.messages) }, status: __method__
     end
 
     def permitted_params

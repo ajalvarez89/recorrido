@@ -1,0 +1,10 @@
+---
+one_confirmed:
+  engineer: base
+  shift: shift_one
+  status: "confirmed"
+
+one_scheduled:
+  engineer: base
+  shift: shift_one
+  status: "scheduled"

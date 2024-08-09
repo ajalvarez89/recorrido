@@ -1,0 +1,26 @@
+/.bundle
+
+# Ignore all logfiles and tempfiles.
+/log/*
+/tmp/*
+!/log/.keep
+!/tmp/.keep
+
+# Ignore uploaded files in development.
+/storage/*
+!/storage/.keep
+.env
+.byebug_history
+/.rubocop-*
+
+# Ignore master key for decrypting credentials and more.
+/config/master.key
+/spec/support/failures.txt
+
+# Ignore Simplecov report
+coverage/*
+deploy.sh
+
+# Ignore gem inside vendor path
+vendor/bundle
+node_modules/

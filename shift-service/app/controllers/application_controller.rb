@@ -14,4 +14,17 @@ class ApplicationController < ActionController::API
   def not_found
     render :nothing, status: __method__
   end
+
+  def api_messages(messages)
+    messages.map do |attribute, error_description|
+      message = { attribute: attribute.to_s, messages: [] }
+
+      error_description.each_with_index do |description, index|
+        code = details[attribute][index][:error].to_s if respond_to?(:details)
+        message[:messages] << { code:, description: }
+      end
+
+      message
+    end
+  end
 end
