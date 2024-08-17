@@ -23,7 +23,7 @@
             <th>Date</th>
             <th>Start Time</th>
             <th>End Time</th>
-            <th>Assigned Engineers</th>
+            <th>Available Engineers</th>
           </tr>
         </thead>
         <tbody>

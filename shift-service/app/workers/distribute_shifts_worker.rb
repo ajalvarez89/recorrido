@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
-class CreateShiftsWorker
+class DistributeShiftsWorker
   include Sneakers::Worker
 
-  QUEUE_NAME = 'shift-service.create-shifts'
+  QUEUE_NAME = 'shift-service.distribute-shifts'
 
   from_queue QUEUE_NAME,
-    routing_key: ['contract.created'],
+    routing_key: ['shifts.updated'],
     arguments: { 'x-dead-letter-exchange': "#{ QUEUE_NAME }-retry" },
     timeout_job_after: 1.minute,
     retry_max_times: 4,
@@ -15,7 +15,7 @@ class CreateShiftsWorker
   def work(params)
     payload = JSON.parse(params).deep_symbolize_keys
 
-    Shifts::CreateService.new(payload).execute!
+    Shifts::DistributeService.new(payload).execute!
     ack!
   end
 end

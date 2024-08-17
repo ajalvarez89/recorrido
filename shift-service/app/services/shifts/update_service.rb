@@ -10,6 +10,8 @@ module Shifts
     def execute!
       assign_shift_attributes
       shift.save!
+
+      ShiftUpdatedEvent.new(shift).publish!
     end
 
     private

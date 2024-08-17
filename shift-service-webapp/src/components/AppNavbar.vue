@@ -2,10 +2,10 @@
   <nav>
     <ul>
       <li>
-        <router-link to="/">Home</router-link>
+        <router-link to="/">Available Shifts</router-link>
       </li>
       <li>
-        <router-link to="/manage_confirmed_shifts">Manage Confirmed Shifts</router-link>
+        <router-link to="/manage_confirmed_shifts">Confirmed Shifts</router-link>
       </li>
     </ul>
   </nav>

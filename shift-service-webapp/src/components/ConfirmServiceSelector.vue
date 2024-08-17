@@ -11,7 +11,6 @@
 
     <!-- Botón de editar confirmaciones -->
     <div class="buttons">
-      <button @click="editConfirmation">Edit Confirmations</button>
       <button v-if="editMode" @click="cancelEdit">Cancel Edit</button>
     </div>
 
@@ -45,7 +44,7 @@
                 <!-- Mostrar ingenieros asignados -->
                 <div v-else>
                   <div class="engineer-container">
-                    <span v-for="engineer in filteredEngineersForShift(shift)" :key="engineer.id">
+                    <span v-for="engineer in filteredConfirmedEngineersForShift(shift)" :key="engineer.id">
                       <span :style="{ backgroundColor: getColorForEngineer(engineer.name) }"
                             class="engineer-button">
                         {{ engineer.name }}
@@ -105,6 +104,15 @@ export default {
         shift.engineer_shifts.map(eShift => eShift.engineer_id)
       );
       return this.allEngineers.filter(engineer => assignedEngineerIds.includes(engineer.id));
+    },
+    filteredConfirmedEngineersForShift() {
+      return (shift) => {
+        // Filtra los ingenieros confirmados para un turno específico
+        const confirmedEngineerIds = shift.engineer_shifts
+          .filter(eShift => eShift.status === 'confirmed')
+          .map(eShift => eShift.engineer_id);
+        return this.filteredEngineers.filter(engineer => confirmedEngineerIds.includes(engineer.id));
+      };
     }
   },
   methods: {
@@ -154,10 +162,6 @@ export default {
         .catch(error => {
           console.error('Error fetching engineers:', error);
         });
-    },
-    editConfirmation() {
-      this.editMode = true; // Habilitar modo de edición
-      this.fetchEngineers(); // Obtener ingenieros al hacer clic en "Edit Confirmations"
     },
     cancelEdit() {
       this.editMode = false; // Deshabilitar modo de edición
@@ -214,19 +218,14 @@ export default {
         }),
       })
       .then(() => {
-        this.fetchShifts(this.selectedContractId);
+        this.fetchShifts(this.selectedContractId); // Refrescar turnos después de la actualización
       })
       .catch(error => {
         console.error('Error updating shift:', error);
       });
-    },
-    filteredEngineersForShift(shift) {
-      // Filtra los ingenieros asignados al turno específico
-      const assignedEngineerIds = shift.engineer_shifts.map(eShift => eShift.engineer_id);
-      return this.filteredEngineers.filter(engineer => assignedEngineerIds.includes(engineer.id));
     }
   },
-  created() {
+  mounted() {
     this.fetchServices();
   }
 };

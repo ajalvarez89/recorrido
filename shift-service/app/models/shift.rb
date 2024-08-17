@@ -14,6 +14,7 @@ class Shift < ApplicationRecord
   scope :by_date, ->(date) { where(date:) }
   scope :by_contract, ->(contract_id) { where(contract_id:) }
   scope :by_day_of_week, ->(day_of_week) { where(day_of_week:) }
+  scope :with_engineers, -> { includes(:engineer_shifts).includes(:engineers) }
 
   accepts_nested_attributes_for :engineer_shifts, allow_destroy: true
 end
