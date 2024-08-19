@@ -22,24 +22,32 @@ module Shifts
       EngineerShift.where(shift: shifts, status: :confirmed).update_all(status: :scheduled)
     end
 
-    #TODO - Its missing to improve the distribution of engineers properly
     def redistribute_engineers
-      shifts.each do |shift|
-        engineers = shift.engineers
-        next if engineers.blank?
+      engineer_turns_count = Hash.new(0)
 
-        engineers.each do |engineer|
-          assignments << { shift: shift, engineer: engineer }
+      all_engineers = shifts.flat_map(&:engineers).uniq
+
+      # Internal: Implementing round-robin strategy for distribution
+      shifts.each do |shift|
+        next if shift.engineers.empty?
+
+        available_engineers = shift.engineers.sort_by { |engineer| engineer_turns_count[engineer] }
+
+        selected_engineer = available_engineers.first
+        assignments << { shift: shift, engineer: selected_engineer }
+        engineer_turns_count[selected_engineer] += 1
+
+        if available_engineers.size == 1
+          selected_engineer = available_engineers.first
+          assignments << { shift: shift, engineer: selected_engineer }
         end
       end
-
-      assignments
     end
 
     def update_shifts
       assignments.each do |assignment|
         engineer_shift = assignment[:shift].engineer_shifts.find_by(engineer: assignment[:engineer])
-        return unless engineer_shift
+        next unless engineer_shift
 
         engineer_shift.update(status: :confirmed)
       end
